@@ -4,7 +4,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import moment from 'moment'
 import 'moment/locale/tr'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 class Profile extends Component {
   constructor(props) {
@@ -44,6 +44,9 @@ class Profile extends Component {
     moment.locale('tr');
     return (
       <div className="container topMargin">
+        <div className="row m12">
+          <Link to='/' className="col m2 offset-m5 waves-effect waves-light btn-large red darken-4">Hesapla</Link>
+        </div>
         <div className="row m12">
           { calculation &&
             <div className="col m6">

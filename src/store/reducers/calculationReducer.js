@@ -11,7 +11,6 @@ const calculationReducer = (state = initState, action) => {
         calculations
       };
     case 'ERROR_ADD_CALCULATION':
-      console.log(action.type);
       return state;
     default:
       return state;

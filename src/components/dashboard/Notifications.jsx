@@ -3,11 +3,15 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
+import { Link } from 'react-router-dom'
 
 const Notifications = (props) => {
   const { notifications } = props;
   return (
     <div className="container topMargin">
+      <div className="row m12">
+        <Link to='/' className="col m2 offset-m5 waves-effect waves-light btn-large red darken-4">Hesapla</Link>
+      </div>
       <div className="card z-depth-4">
         <div className="card-content">
           <span className="card-title">Notifications</span>

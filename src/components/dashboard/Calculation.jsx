@@ -101,7 +101,6 @@ class Calculation extends React.Component {
     this.state.entity.datas.map( pair => {
       if (pair.name === "" || pair.price === "" || pair.price === "0" || !pair.price.match(/^-{0,1}\d+$/) ) {
         valid = 0;
-        console.log("valid 0");
       }
       return null;
     });
@@ -118,15 +117,11 @@ class Calculation extends React.Component {
   }
 
   render() {
-    console.log(this.state.error);
     let datas = this.state.entity.datas;
     const dataList = datas ? (
       datas.map( (data, i) => {
         return (
-          <div className="row" key={i} >
-            <button href="" type="button" className="center right btn-floating btn-small waves-effect waves-light red darken-4" onClick={() => {this.removePair(i)}}>
-              <i className="material-icons">remove</i>
-            </button>            
+          <div className="row s12" key={i} >           
             <div className="input-field col s6">
               <input id="pairName" type="text" className="validate" onChange={(e) => {this.onChange(e.target, i)}} />
               <label htmlFor="pairPrice">Ortak {i + 1}</label>
@@ -135,6 +130,11 @@ class Calculation extends React.Component {
               <input id="pairPrice" type="text" className="validate" onChange={(e) => {this.onChange(e.target, i)}}/>
               <label htmlFor="pairPrice">Ücret</label>
               <i className="material-icons prefix">attach_money</i>
+            </div>
+            <div className="input-field col s1">
+              <button href="" type="button" className="btn-floating waves-effect waves-light red darken-4" onClick={() => {this.removePair(i)}}>
+                <i className="material-icons">remove</i>
+              </button>
             </div>
           </div>
         )
@@ -145,7 +145,7 @@ class Calculation extends React.Component {
 
     return (
       <div className="card-panel">
-        <div className="row">
+        <div className="row s12">
           { this.state.error && <div className="red">{this.state.error}</div>}
           <form className="col s12" onSubmit={this.onSubmit}>
             <div className="row">
@@ -165,11 +165,11 @@ class Calculation extends React.Component {
               </div>
             </div>
             {dataList}
-            <div className="row">
-              <button className="btn waves-effect waves-light red darken-4" type="button" name="action" onClick={() => {this.addNewPair()}}>Ortak Ekle
+            <div className="row s12">
+              <button className="left col s2 offset-s2 btn waves-effect waves-light red darken-4" type="button" name="action" onClick={() => {this.addNewPair()}}>Ortak Ekle
                 <i className="material-icons right">person_add</i>
               </button>
-              <button className="btn waves-effect waves-light red darken-4 right" type="submit" name="action">Hesapla
+              <button className=" col s2 offset-s2 btn waves-effect waves-light red darken-4 right" type="submit" name="action">Hesapla
                 <i className="material-icons right">send</i>
               </button>
             </div>
