@@ -28,8 +28,14 @@ const store = createStore(rootReducer,
 
 function AuthIsLoaded({ children }) {
     const auth = useSelector(state => state.firebase.auth)
-    if (!isLoaded(auth)) return <div>Loading Screen...</div>;
-        return children
+    if (!isLoaded(auth)) {
+        return (
+            <div class="progress topMargin red darken-4">
+              <div class="indeterminate"></div>
+            </div>
+        )    
+    }
+    return children
 }
 
 ReactDOM.render(

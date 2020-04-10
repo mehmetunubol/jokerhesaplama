@@ -30,7 +30,11 @@ class Profile extends Component {
   }
   render() {
     if(!this.props.calculations) {
-      return <div>Loading ...</div>
+      return (
+        <div class="progress">
+          <div class="indeterminate"></div>
+        </div>
+      )
     }
     if(!this.state.createdAt) {
       return <Redirect to="/"/>
