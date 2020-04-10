@@ -45,36 +45,38 @@ class Profile extends Component {
     return (
       <div className="container topMargin">
         <div className="row m12">
-          <div className="col m6">
-            <div className="card-panel">
-              <table>
-                <thead>
-                  <tr>
-                      <th>Son Hesaplama</th>
-                      <td>{moment(calculation.createdAt.toDate()).format('L')}</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>Toplam Ödenen</th>
-                    <td>{calculation.calcTotal - calculation.joker} TL</td>
-                  </tr>
-                  <tr>
-                    <th>Joker</th>
-                    <td>{calculation.joker} TL</td>
-                  </tr>
-                  <tr>
-                    <th>Yüzde</th>
-                    <td>{calculation.percent}</td>
-                  </tr>
-                  <tr>
-                    <th>Ortaklar</th>
-                    <td>{calculation.pairs.join()}</td>
-                  </tr>
-                </tbody>
-              </table>
+          { calculation &&
+            <div className="col m6">
+              <div className="card-panel">
+                <table>
+                  <thead>
+                    <tr>
+                        <th>Son Hesaplama</th>
+                        <td>{moment(calculation.createdAt.toDate()).format('L')}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Toplam Ödenen</th>
+                      <td>{calculation.calcTotal - calculation.joker} TL</td>
+                    </tr>
+                    <tr>
+                      <th>Joker</th>
+                      <td>{calculation.joker} TL</td>
+                    </tr>
+                    <tr>
+                      <th>Yüzde</th>
+                      <td>{calculation.percent}</td>
+                    </tr>
+                    <tr>
+                      <th>Ortaklar</th>
+                      <td>{calculation.pairs.join()}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          }
           <div className="col m6">
             <div className="card-panel">
               <form className="white" onSubmit={this.handleSubmit}>
