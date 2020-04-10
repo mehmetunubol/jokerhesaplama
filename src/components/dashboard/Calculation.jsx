@@ -166,10 +166,10 @@ class Calculation extends React.Component {
             </div>
             {dataList}
             <div className="row s12">
-              <button className="left col s2 offset-s2 btn waves-effect waves-light red darken-4" type="button" name="action" onClick={() => {this.addNewPair()}}>Ortak Ekle
+              <button className="col m2 s3 offset-s2 btn waves-effect waves-light red darken-4" type="button" name="action" onClick={() => {this.addNewPair()}}>Ortak Ekle
                 <i className="material-icons right">person_add</i>
               </button>
-              <button className=" col s2 offset-s2 btn waves-effect waves-light red darken-4 right" type="submit" name="action">Hesapla
+              <button className="col m2 s4 right offset-s2 btn waves-effect waves-light red darken-4" type="submit" name="action">Hesapla
                 <i className="material-icons right">send</i>
               </button>
             </div>
