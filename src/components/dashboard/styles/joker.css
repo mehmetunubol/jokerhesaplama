@@ -1,0 +1,53 @@
+.calcForm {
+	padding: 5%;
+}
+.button {
+	padding: 5%;
+	margin: 10%;
+	box-shadow: 0 1px 0 0 #fd9267;
+}
+.modalTitle {
+	position: relative;
+	margin-left: 40%;
+}
+.background {
+	background-color: #f5f5f5;
+}
+.totalRow {
+	background-color: #b81705d9;
+	font-weight: 700;	
+}
+.formPriceUnit {
+	width: 20% !important;
+	padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+.customForm {
+	padding: 5%;
+	box-shadow: 5px 10px #888888;
+	border: 2px solid grey;
+}
+
+.CoverLink {
+	margin-top: 10%;
+	margin-right: 10%;
+	position: relative;
+	background-color:transparent;
+	border-radius:50px;
+	display:inline-block;
+	cursor:pointer;
+	color:#b81705;
+	font-family:Arial-Bold;
+	font-size:20px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #b81705;
+}
+.CoverLink:hover {
+	color:#ffffff;
+	background-color:#b81705;
+}
+.CoverLink:active {
+	position:relative;
+	top:1px;
+}
