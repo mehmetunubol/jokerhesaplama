@@ -13,8 +13,6 @@ export default function Footer() {
               <div class="col l4 offset-l2 s12">
                 <ul>
                   <li><a class="grey-text text-lighten-3" href="/">Anasayfa</a></li>
-                  <li><a class="grey-text text-lighten-3" href="/singup">Kayıl Ol</a></li>
-                  <li><a class="grey-text text-lighten-3" href="/signin">Giriş Yap</a></li>
                 </ul>
               </div>
             </div>
