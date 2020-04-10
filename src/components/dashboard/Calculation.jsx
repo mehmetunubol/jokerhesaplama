@@ -144,7 +144,7 @@ class Calculation extends React.Component {
     );
 
     return (
-      <div className="card-panel">
+      <div className="card-panel topMargin">
         <div className="row s12">
           { this.state.error && <div className="red">{this.state.error}</div>}
           <form className="col s12" onSubmit={this.onSubmit}>

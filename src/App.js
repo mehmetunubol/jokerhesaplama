@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './components/layout/Navbar'
-import Copyright from './components/layout/Copyright'
+import Footer from './components/layout/Footer'
 import Dashboard from './components/dashboard/Dashboard'
 import Result from './components/dashboard/Result'
 import Profile from './components/auth/Profile'
@@ -23,7 +23,7 @@ class App extends Component {
             <Route path='/signup' component={SignUp} />
             <Route path='/stats' component={Notifications} />
           </Switch>
-          <Copyright/>
+          <Footer className="footer"/>
         </div>
       </BrowserRouter>
     );
