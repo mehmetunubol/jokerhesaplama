@@ -10,10 +10,10 @@ class Calculation extends React.Component {
       entity: {
         datas: [{ name: "Ortak 1", price: ""}, { name: "Ortak 2", price: ""}, { name: "Ortak 3", price: ""}],
         result: [],
-        total: {},
-        optionPercent: 1,
-        optionPayment: 1,
+        total: {}
       },
+      optionPercent: true,
+      optionPayment: 1,
       error: null,
     };
   }  
@@ -40,8 +40,7 @@ class Calculation extends React.Component {
   }
 
   onChange = ( target, id) => {
-    let option = 0;
-    if (target.id === "pairName") {
+    if (target.id.includes("pairName")) {
       this.setState({
         ...this.state,
         entity: { 
@@ -50,7 +49,7 @@ class Calculation extends React.Component {
             return { ...s, name: target.value };
           })
       }});
-    } else if (target.id === "pairPrice") {
+    } else if (target.id.includes("pairPrice")) {
       this.setState({
         error: null,
         entity: { 
@@ -60,29 +59,14 @@ class Calculation extends React.Component {
           })
       }});
     } else if (target.id === "formCheckboxPercent") {
-      if (target.checked) {
-        option = 1;
-      } else {
-        option = 0;
-      }
-      this.setState({
-        entity: {
-          ...this.state.entity,
-          optionPercent: option
-        }
-      });
-    } else if (target.id === "formCheckboxPayment") {
-      if (target.checked) {
-        option = 1;
-      } else {
-        option = 0;
-      }
       this.setState({
         ...this.state,
-        entity: {
-          ...this.state.entity,
-          optionPayment: option
-        }
+        optionPercent: target.checked
+      });
+    } else if (target.id === "formCheckboxPayment") {
+      this.setState({
+        ...this.state,
+        optionPayment: target.checked
       });
     }
   }
@@ -97,7 +81,9 @@ class Calculation extends React.Component {
   }
 
   calculateResult = () => {
-    let valid = true
+    let optionPercent = this.state.optionPercent;
+
+    let valid = true;
     this.state.entity.datas.map( pair => {
       if (pair.name === "" || pair.price === "" || pair.price === "0" || !pair.price.match(/^-{0,1}\d+$/) ) {
         valid = 0;
@@ -111,7 +97,7 @@ class Calculation extends React.Component {
       });
       return false;
     } else {
-      this.props.addLocalCalcs(this.state.entity.datas);
+      this.props.addLocalCalcs(this.state.entity.datas, {equalRatio: optionPercent});
       return true;
     }
   }
@@ -123,12 +109,12 @@ class Calculation extends React.Component {
         return (
           <div className="row s12" key={i} >           
             <div className="input-field col s6">
-              <input id="pairName" type="text" className="validate" onChange={(e) => {this.onChange(e.target, i)}} />
-              <label htmlFor="pairPrice">Ortak {i + 1}</label>
+              <input id={"pairName" + i} type="text" className="validate" onChange={(e) => {this.onChange(e.target, i)}} />
+              <label htmlFor={"pairName" + i}>Ortak {i + 1}</label>
             </div>
             <div className="input-field col s5">
-              <input id="pairPrice" type="text" className="validate" onChange={(e) => {this.onChange(e.target, i)}}/>
-              <label htmlFor="pairPrice">Ücret</label>
+              <input id={"pairPrice" + i} type="text" className="validate" onChange={(e) => {this.onChange(e.target, i)}}/>
+              <label htmlFor={"pairPrice" + i}>Ücret</label>
               <i className="material-icons prefix">attach_money</i>
             </div>
             <div className="input-field col s1">
@@ -152,16 +138,16 @@ class Calculation extends React.Component {
               <div className="col">
               </div>
               <div className="col right">
-                <label>
-                  <input disabled id="formCheckboxPercent" type="checkbox" defaultChecked={this.state.entity.optionPercent} onChange={(e) => {this.onChange(e.target)}} />
+                <label title="Hesaplama Oranı herkese eşit olmasını istiyorsanız seçili bırakınız. Aksi halde Ödeme miktarı fazla olan ortağın indirimi de yüksek olacaktır">
+                  <input className="card-panel hoverable" id="formCheckboxPercent" type="checkbox" defaultChecked={this.state.optionPercent} onChange={(e) => {this.onChange(e.target)}} />
                   <span>Eşit Dağılım</span>
                 </label>
               </div>
               <div className="col right">
-                <label>
-                  <input disabled id="formCheckboxPayment" type="checkbox" defaultChecked={this.state.entity.optionPercent} onChange={(e) => {this.onChange(e.target)}} />
+                {/*<label>
+                  <input disabled id="formCheckboxPayment" type="checkbox" defaultChecked={this.state.optionPayment} onChange={(e) => {this.onChange(e.target)}} />
                   <span>Kredi Kartı</span>
-                </label>
+                </label>*/}
               </div>
             </div>
             {dataList}
@@ -188,7 +174,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addLocalCalcs: (calculations) => dispatch(addlocalCalc(calculations)),
+    addLocalCalcs: (calculations, ratio) => dispatch(addlocalCalc(calculations, ratio)),
   }
 }
 

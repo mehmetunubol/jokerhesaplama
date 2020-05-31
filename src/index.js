@@ -30,8 +30,8 @@ function AuthIsLoaded({ children }) {
     const auth = useSelector(state => state.firebase.auth)
     if (!isLoaded(auth)) {
         return (
-            <div class="progress topMargin red darken-4">
-              <div class="indeterminate"></div>
+            <div className="progress topMargin red darken-4">
+              <div className="indeterminate"></div>
             </div>
         )    
     }

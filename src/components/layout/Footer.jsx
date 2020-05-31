@@ -3,22 +3,22 @@ import React from 'react';
 export default function Footer() {
 
   return (
-    <footer class="page-footer red darken-4 footer ">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Joker Hesaplama</h5>
-                <p class="grey-text text-lighten-4"></p>
+    <footer className="page-footer red darken-4 footer ">
+          <div className="container">
+            <div className="row">
+              <div className="col l6 s12">
+                <h5 className="white-text">Joker Hesaplama</h5>
+                <p className="grey-text text-lighten-4"></p>
               </div>
-              <div class="col l4 offset-l2 s12">
+              <div className="col l4 offset-l2 s12">
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="/">Anasayfa</a></li>
+                  <li><a className="grey-text text-lighten-3" href="/">Anasayfa</a></li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="footer-copyright center">
-            <div class="container">
+          <div className="footer-copyright center">
+            <div className="container">
                ©Copyright 2020 mnbl
             </div>
           </div>

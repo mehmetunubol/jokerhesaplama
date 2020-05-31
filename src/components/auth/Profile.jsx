@@ -31,8 +31,8 @@ class Profile extends Component {
   render() {
     if(!this.props.calculations) {
       return (
-        <div class="progress">
-          <div class="indeterminate"></div>
+        <div className="progress">
+          <div className="indeterminate"></div>
         </div>
       )
     }

@@ -8,11 +8,11 @@ import { Redirect } from 'react-router-dom'
 import './styles/joker.css';
 
 const Result = (props) => {
-
   const pairs = props.calculations;
   if (pairs === undefined) {
     return (<Redirect to="/"/>);
   }
+  const equalRatio = props.ratio.equalRatio;
   let results = [];
   let totalResult = {"calcTotal": 0,"new": 0, "old": 0, "joker": 0, "percent":0};
   let valid = 1;
@@ -50,7 +50,11 @@ const Result = (props) => {
   totalResult.new = totalResult.old - totalResult.joker;
   totalResult.percent = Math.round( ( (totalResult.old - totalResult.new) * 100) / totalResult.old) + "%";
 
-  if (1) {
+  if (equalRatio) {
+    // Eşit Dağılım.
+    // Find a general percentage from total.
+    // Multiply it the price for each pair.
+    // The value of the individual pair is not important.
     const calculation_percentage = totalResult.new / totalResult.old;
     totalResult.calcTotal = 0;
     results = pairs.map( (pair, i) => {
@@ -61,7 +65,15 @@ const Result = (props) => {
       return {"name": pair.name, "old":pair.price, "new": newPrice, "gain":  gain, "percent": percent + '%'};
     });
   } else {
-
+    totalResult.calcTotal = 0;
+    results = pairs.map( (pair, i) => {
+      const pair_percentage = pair.price/ totalResult.old;
+      let newPrice = parseInt(pair.price) - Math.round(pair_percentage * totalResult.joker);
+      let gain = parseInt(pair.price) - newPrice;
+      let percent = Math.round(( (parseInt(pair.price) - newPrice) * 100) / parseInt(pair.price));
+      totalResult.calcTotal += newPrice;
+      return {"name": pair.name, "old":pair.price, "new": newPrice, "gain":  gain, "percent": percent + '%'};
+    });
   }
   const resultList = results ? (
     results.map( (pair, i) => {
@@ -87,11 +99,25 @@ const Result = (props) => {
           <td>{totalResult.percent}</td>
           <td>{totalResult.calcTotal} TL</td>
         </tr>
-      
   ) : (
     <tr key="noTotal"/>
   );
-  
+
+  const realTotal = totalResult.old - totalResult.joker;
+  const missing = totalResult.calcTotal !==  realTotal ? (
+    <tr>
+      <td colSpan="5">
+        Ödenmesi gereken toplam tutar: {realTotal} TL
+        <br/>
+        {(realTotal - totalResult.calcTotal > 0)? 
+          "Bir kisi " + (realTotal - totalResult.calcTotal) + " TL fazla vermeli!":
+          "Bir kisi " + (totalResult.calcTotal - realTotal) + " TL az vermeli!"
+        }
+      </td>
+    </tr>
+  ) : (
+  <tr key="noTotalinfo"/>
+  );
   props.addCalculation({...totalResult, "pairs": allPairNames});
 
   return (
@@ -112,6 +138,7 @@ const Result = (props) => {
           <tbody>
             {resultList}
             {total}
+            {missing}
           </tbody>
         </Table>
         }
@@ -126,7 +153,8 @@ const Result = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    calculations: state.localcalc.calculations
+    calculations: state.localcalc.calculations,
+    ratio: state.localcalc.ratio
   }
 }
 

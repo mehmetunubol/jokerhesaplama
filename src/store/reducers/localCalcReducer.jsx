@@ -6,7 +6,8 @@ const initState = {
     switch (action.type) {
       case 'ADD_CALC':
         return {
-          calculations: action.calculations
+          calculations: action.calculations,
+          ratio: action.ratio
         };
       default:
         return state;
