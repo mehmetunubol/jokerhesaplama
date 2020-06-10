@@ -85,7 +85,7 @@ class Calculation extends React.Component {
 
     let valid = true;
     this.state.entity.datas.map( pair => {
-      if (pair.name === "" || pair.price === "" || pair.price === "0" || !pair.price.match(/^-{0,1}\d+$/) ) {
+      if (pair.name === "" || pair.price === "" || pair.price === "0" || !pair.price.match(/(\d+(\.\d+)?)/) ) {
         valid = 0;
       }
       return null;
