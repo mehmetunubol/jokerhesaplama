@@ -30,8 +30,9 @@ const Result = (props) => {
     return 0;
   }
   totalResult = pairs.reduce((previousValue, currentValue) => {
+    console.log(currentValue.price);
     return ({
-      price: parseInt(previousValue.price) + parseInt(currentValue.price),
+      price: parseFloat(previousValue.price) + parseFloat(currentValue.price),
     })
   });
   totalResult.old = totalResult.price;
@@ -58,9 +59,9 @@ const Result = (props) => {
     const calculation_percentage = totalResult.new / totalResult.old;
     totalResult.calcTotal = 0;
     results = pairs.map( (pair, i) => {
-      let newPrice = Math.round(calculation_percentage * parseInt( pair.price));
-      let percent = Math.round(( (parseInt(pair.price) - newPrice) * 100) / parseInt(pair.price));
-      let gain = parseInt(pair.price) - newPrice;
+      let newPrice = Math.round(calculation_percentage * parseFloat( pair.price));
+      let percent = Math.round(( (parseFloat(pair.price) - newPrice) * 100) / parseFloat(pair.price));
+      let gain = parseFloat(pair.price) - newPrice;
       totalResult.calcTotal += newPrice;
       return {"name": pair.name, "old":pair.price, "new": newPrice, "gain":  gain, "percent": percent + '%'};
     });
@@ -68,9 +69,9 @@ const Result = (props) => {
     totalResult.calcTotal = 0;
     results = pairs.map( (pair, i) => {
       const pair_percentage = pair.price/ totalResult.old;
-      let newPrice = parseInt(pair.price) - Math.round(pair_percentage * totalResult.joker);
-      let gain = parseInt(pair.price) - newPrice;
-      let percent = Math.round(( (parseInt(pair.price) - newPrice) * 100) / parseInt(pair.price));
+      let newPrice = parseFloat(pair.price) - Math.round(pair_percentage * totalResult.joker);
+      let gain = parseFloat(pair.price) - newPrice;
+      let percent = Math.round(( (parseFloat(pair.price) - newPrice) * 100) / parseFloat(pair.price));
       totalResult.calcTotal += newPrice;
       return {"name": pair.name, "old":pair.price, "new": newPrice, "gain":  gain, "percent": percent + '%'};
     });
@@ -145,7 +146,7 @@ const Result = (props) => {
         </div>
       </div>
       <div className="row">
-        <Link to='/' className="waves-effect waves-light btn-large red darken-4 right">Done</Link>
+        <Link to='/' className="waves-effect waves-light btn-large red darken-4 right">Anasayfa</Link>
       </div>
     </div>
   );
