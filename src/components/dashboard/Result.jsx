@@ -1,4 +1,5 @@
-import React from 'react';
+import { exportComponentAsPNG } from "react-component-export-image";
+import React, { useRef } from "react";
 import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -8,6 +9,9 @@ import { Redirect } from 'react-router-dom'
 import './styles/joker.css';
 
 const Result = (props) => {
+  const { auth } = props;
+  let logined = auth.uid;
+  const componentRef = useRef();
   const pairs = props.calculations;
   if (pairs === undefined) {
     return (<Redirect to="/"/>);
@@ -120,13 +124,8 @@ const Result = (props) => {
   <tr key="noTotalinfo"/>
   );
   props.addCalculation({...totalResult, "pairs": allPairNames});
-
-  return (
-    <div className="container topMargin">
-      <div className="row">
-        <div className="card-panel">
-        { results &&
-        <Table striped bordered hover>
+  const ComponentToPrint = React.forwardRef((props, ref) => (
+      <Table ref={ref} striped bordered hover>
           <thead>
             <tr>
               <th>Ortak</th>
@@ -142,11 +141,28 @@ const Result = (props) => {
             {missing}
           </tbody>
         </Table>
+  ));
+
+  return (
+    <div className="container topMargin">
+      <div className="row">
+        <div className="card-panel">
+        { results &&
+          <ComponentToPrint ref={componentRef} />
         }
         </div>
       </div>
       <div className="row">
+        { logined && 
+          <button className="waves-effect waves-light btn-large red darken-4 left" 
+              onClick={() => exportComponentAsPNG(componentRef, "JokerHesaplamaSonuc")}>
+            İNDİR
+          </button>
+        }
         <Link to='/' className="waves-effect waves-light btn-large red darken-4 right">Anasayfa</Link>
+      </div>
+      <div className="row">
+        
       </div>
     </div>
   );
@@ -154,6 +170,7 @@ const Result = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.firebase.auth,
     calculations: state.localcalc.calculations,
     ratio: state.localcalc.ratio
   }
